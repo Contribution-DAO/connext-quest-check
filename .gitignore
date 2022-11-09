@@ -1,0 +1,12 @@
+# env
+.env
+*.venv
+
+# cache
+**/__pycache__
+**/*.ipynb
+.vscode
+
+# data
+input
+output

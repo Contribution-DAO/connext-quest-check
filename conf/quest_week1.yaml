@@ -1,0 +1,29 @@
+users_path: input/user_list.txt
+export_path: output/results.txt
+
+criteria:
+  min_followers: 50
+
+  follows:
+    - https://twitter.com/ConnextNetwork
+    - https://twitter.com/ConnextIntern
+    - https://twitter.com/nfthashi
+    - https://twitter.com/alBlanqen
+    - https://twitter.com/sexatnoontaxes_
+    - https://twitter.com/mchammond
+    - https://twitter.com/LayneHaber
+    - https://twitter.com/RHLSTHRM
+    - https://twitter.com/A_Keyboard
+    - https://twitter.com/arjunbhuptani
+
+  likes:
+    - https://twitter.com/ConnextNetwork/status/1586134107855065088
+    - https://twitter.com/ConnextNetwork/status/1588212308462927873
+    - https://twitter.com/ConnextNetwork/status/1587783330652516353
+    - https://twitter.com/FujiFinance/status/1570037049939599361
+    - https://twitter.com/ConnextNetwork/status/1587096437795471360
+    - https://twitter.com/ConnextNetwork/status/1585782490236874753
+
+  retweets:
+    - https://twitter.com/ConnextNetwork/status/1586134107855065088
+    - https://twitter.com/ConnextNetwork/status/1587783330652516353
