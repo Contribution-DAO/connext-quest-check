@@ -6,6 +6,7 @@
 **/__pycache__
 **/*.ipynb
 .vscode
+.cache
 
 # data
 input

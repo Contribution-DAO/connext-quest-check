@@ -26,6 +26,8 @@ def main(args: Namespace) -> None:
     # read inp/out path
     users_path = cfg.get("users_path", None)
     export_path = cfg.get("export_path", "output.json")
+    cache_path = cfg.get("cache_path", ".cache")
+    os.makedirs(cache_path, exist_ok=True)
 
     # load criteria
     criteria = cfg.get("criteria", {})
@@ -39,25 +41,38 @@ def main(args: Namespace) -> None:
         for _usr in must_follow]  # get uname
 
     # get must liked tweets
+    
     # use cache to reduce request
-    like_cache_path = ".cache/like.json"
+    like_cache_path = f"{cache_path}/like.json"
     if os.path.exists(like_cache_path):
         with open(like_cache_path, "r") as fp:
-            must_likes = json.load(fp)
+            loaded_must_likes = json.load(fp)
     else:
-        must_likes = {
-            _twt: twitter_api.get_tweet_likes(_twt) 
-            for _twt in must_likes}
+        loaded_must_likes = {}
+
+    for _twt in must_likes:
+        if _twt not in loaded_must_likes.keys():
+            loaded_must_likes[_twt] =  twitter_api.get_tweet_likes(_twt.split("/")[-1]) 
+        
+    must_likes = loaded_must_likes
+    with open(like_cache_path, "w") as fp:
+        json.dump(must_likes, fp)
 
     # get must retweeted tweets
-    rtw_cache_path = ".cache/rtw.json"
+    rtw_cache_path = f"{cache_path}/rtw.json"
     if os.path.exists(rtw_cache_path):
         with open(rtw_cache_path, "r") as fp:
-            must_rtw = json.load(fp)
+            loaded_must_rtw = json.load(fp)
     else:
-        must_rtw = {
-            _twt: twitter_api.get_tweet_retweets(_twt.split("/")[-1]) 
-            for _twt in must_rtw}
+        loaded_must_rtw = {}
+
+    for _twt in must_rtw:
+        if _twt not in loaded_must_rtw.keys():
+            loaded_must_rtw[_twt] =  twitter_api.get_tweet_retweets(_twt.split("/")[-1]) 
+
+    must_rtw = loaded_must_rtw
+    with open(rtw_cache_path, "w") as fp:
+        json.dump(must_rtw, fp)
 
     # read users
     if users_path is None:

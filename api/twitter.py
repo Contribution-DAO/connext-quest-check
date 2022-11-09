@@ -24,7 +24,7 @@ class TwitterAPI(object):
         response = requests.get(url, headers=headers, params=params)
 
         if response.status_code != 200:
-            return {"status": f"Error: {response.text}"}
+            raise ConnectionError(response.text)
 
         data = response.json()["data"]
         return data
@@ -44,7 +44,7 @@ class TwitterAPI(object):
         response = requests.get(url, headers=headers, params=params)
 
         if response.status_code != 200:
-            return {"status": f"Error: {response.text}"}
+            raise ConnectionError(response.text)
 
         resp = response.json()
 
@@ -74,7 +74,7 @@ class TwitterAPI(object):
         response = requests.get(url, headers=headers, params=params)
 
         if response.status_code != 200:
-            return {"status": f"Error: {response.text}"}
+            raise ConnectionError(response.text)
 
         resp = response.json()
 
@@ -105,7 +105,7 @@ class TwitterAPI(object):
         response = requests.get(url, headers=headers, params=params)
 
         if response.status_code != 200:
-            return {"status": f"Error: {response.text}"}
+            raise ConnectionError(response.text)
 
         resp = response.json()
         
@@ -136,7 +136,7 @@ class TwitterAPI(object):
         response = requests.get(url, headers=headers, params=params)
 
         if response.status_code != 200:
-            return {"status": f"Error: {response.text}"}
+            raise ConnectionError(response.text)
 
         resp = response.json()
 
