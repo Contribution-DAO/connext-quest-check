@@ -39,14 +39,25 @@ def main(args: Namespace) -> None:
         for _usr in must_follow]  # get uname
 
     # get must liked tweets
-    must_likes = {
-        _twt: twitter_api.get_tweet_likes(_twt) 
-        for _twt in must_likes}
+    # use cache to reduce request
+    like_cache_path = ".cache/like.json"
+    if os.path.exists(like_cache_path):
+        with open(like_cache_path, "r") as fp:
+            must_likes = json.load(fp)
+    else:
+        must_likes = {
+            _twt: twitter_api.get_tweet_likes(_twt) 
+            for _twt in must_likes}
 
     # get must retweeted tweets
-    must_rtw = {
-        _twt: twitter_api.get_tweet_retweets(_twt.split("/")[-1]) 
-        for _twt in must_rtw}
+    rtw_cache_path = ".cache/rtw.json"
+    if os.path.exists(rtw_cache_path):
+        with open(rtw_cache_path, "r") as fp:
+            must_rtw = json.load(fp)
+    else:
+        must_rtw = {
+            _twt: twitter_api.get_tweet_retweets(_twt.split("/")[-1]) 
+            for _twt in must_rtw}
 
     # read users
     if users_path is None:
